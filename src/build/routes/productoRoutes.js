@@ -20,6 +20,7 @@ class ProductoRoutes {
         this.router.get('/getPrecio/:id', productoController_1.productoController.getPrecio);
         this.router.get('/getAnimal/', productoController_1.productoController.getAnimal);
         this.router.get('/getNombreProducto/', productoController_1.productoController.getNombresProducto);
+        this.router.put('/reducirCant/', productoController_1.productoController.reducirCant);
     }
 }
 const productoRoutes = new ProductoRoutes();

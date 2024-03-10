@@ -21,6 +21,7 @@ public router: Router=Router();
         this.router.get('/getPrecio/:id',productoController.getPrecio);
         this.router.get('/getAnimal/',productoController.getAnimal);
         this.router.get('/getNombreProducto/',productoController.getNombresProducto);
+        this.router.put('/reducirCant/',productoController.reducirCant);
         
         
     }

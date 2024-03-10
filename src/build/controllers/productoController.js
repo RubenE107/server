@@ -120,5 +120,15 @@ class ProductoController {
             res.status(404).json({ 'mensaje': 'No existe este producto' });
         });
     }
+    reducirCant(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let consulta = `UPDATE producto SET cantidad = cantidad - ${req.body.cantidad} WHERE id = ${req.body.id}`;
+            console.log(consulta);
+            const resp = yield database_1.default.query(consulta);
+            console.log(resp);
+            res.json(resp);
+            //res.json(null);
+        });
+    }
 }
 exports.productoController = new ProductoController();

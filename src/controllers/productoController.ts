@@ -89,6 +89,14 @@ class ProductoController
          }
          res.status(404).json({'mensaje': 'No existe este producto'});
     }
+    public async reducirCant(req: Request, res: Response):Promise<void>{
+        let consulta = `UPDATE producto SET cantidad = cantidad - ${req.body.cantidad} WHERE id = ${req.body.id}`
+        console.log(consulta)
+        const resp = await pool.query(consulta);
+        console.log(resp);
+        res.json(resp);
+        //res.json(null);
+    }
 }
 
 export const productoController = new ProductoController();
