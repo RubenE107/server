@@ -1,5 +1,6 @@
 import {Request,Response} from 'express';
 import pool from '../database';
+import bcrypt from 'bcryptjs';
 class UserController
 {
     public async list(req: Request, res: Response ): Promise<void>{
@@ -19,6 +20,11 @@ class UserController
     }
 
     public async create(req: Request, res: Response): Promise<void> {
+        const salt = await bcrypt.genSalt(10);
+        console.log(salt);
+        let clave = await bcrypt.hash(req.body.contra, salt);
+        console.log(clave);
+    req.body.contra = clave
         const resp = await pool.query("INSERT INTO user set ?", [req.body]);
         res.json(resp);
     }
@@ -66,12 +72,15 @@ class UserController
     public async validarUsuario(req: Request, res: Response): Promise<void> {
         console.log(req.params);
         let aux = req.body;
-        const resp = await pool.query("Select * from user WHERE correo = ? AND contra = ?;",[aux.correo, aux.contra]);
+        let ra = await pool.query("Select contra from user WHERE correo = ?;",[aux.correo]);
+        let qqq =  await bcrypt.compare(req.body.contra,ra[0].contra);
+        console.log(qqq)
+        /*const resp = await pool.query("Select * from user WHERE correo = ? AND contra = ?;",[aux.correo, aux.contra]);
         if(resp.length>0){
             res.json(resp[0]);
             return ;
         }else
-            res.json({"id":-1});
+            res.json({"id":-1});*/
     }
 
 

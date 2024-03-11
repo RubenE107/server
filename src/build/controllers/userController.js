@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userController = void 0;
 const database_1 = __importDefault(require("../database"));
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
 class UserController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -35,6 +36,11 @@ class UserController {
     }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const salt = yield bcryptjs_1.default.genSalt(10);
+            console.log(salt);
+            let clave = yield bcryptjs_1.default.hash(req.body.contra, salt);
+            console.log(clave);
+            req.body.contra = clave;
             const resp = yield database_1.default.query("INSERT INTO user set ?", [req.body]);
             res.json(resp);
         });
@@ -89,13 +95,15 @@ class UserController {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(req.params);
             let aux = req.body;
-            const resp = yield database_1.default.query("Select * from user WHERE correo = ? AND contra = ?;", [aux.correo, aux.contra]);
-            if (resp.length > 0) {
+            let ra = yield database_1.default.query("Select contra from user WHERE correo = ?;", [aux.correo]);
+            let qqq = yield bcryptjs_1.default.compare(req.body.contra, ra[0].contra);
+            console.log(qqq);
+            /*const resp = await pool.query("Select * from user WHERE correo = ? AND contra = ?;",[aux.correo, aux.contra]);
+            if(resp.length>0){
                 res.json(resp[0]);
-                return;
-            }
-            else
-                res.json({ "id": -1 });
+                return ;
+            }else
+                res.json({"id":-1});*/
         });
     }
 }
