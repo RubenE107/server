@@ -69,6 +69,7 @@ class UserController
         res.status(404).json({'mensaje': 'No hay usuario en ese rol'});
     }
     
+    
     public async validarUsuario(req: Request, res: Response): Promise<void> {
         console.log(req.params);
         let aux = req.body;
