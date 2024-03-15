@@ -24,7 +24,7 @@ class UserController
         console.log(salt);
         let clave = await bcrypt.hash(req.body.contra, salt);
         console.log(clave);
-    req.body.contra = clave
+        req.body.contra = clave
         const resp = await pool.query("INSERT INTO user set ?", [req.body]);
         res.json(resp);
     }
@@ -78,7 +78,7 @@ class UserController
         console.log(qqq)
         /*const resp = await pool.query("Select * from user WHERE correo = ? AND contra = ?;",[aux.correo, aux.contra]);
         if(resp.length>0){
-            res.json(resp[0]);
+            res.json(resp[0]);-
             return ;
         }else
             res.json({"id":-1});*/

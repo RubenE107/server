@@ -5,7 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc -w",
-    "dev": "nodemon src/build/index.js"
+    "dev": "nodemon src/build/index.js",
+    "correo":"nodemon src/build/app.js"
   },
   "keywords": [],
   "author": "",
@@ -24,7 +25,8 @@
     "swagger": "^0.7.5",
     "swagger-express": "^1.0.5",
     "swagger-ui-express": "^4.6.3",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "emailjs":"^2.2.0"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
