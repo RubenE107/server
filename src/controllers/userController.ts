@@ -73,9 +73,18 @@ class UserController
     public async validarUsuario(req: Request, res: Response): Promise<void> {
         console.log(req.params);
         let aux = req.body;
-        let ra = await pool.query("Select contra from user WHERE correo = ?;",[aux.correo]);
+        let ra = await pool.query("Select * from user WHERE correo = ?;",[aux.correo]);
         let qqq =  await bcrypt.compare(req.body.contra,ra[0].contra);
-        console.log(qqq)
+        console.log(qqq);
+
+        if(qqq)
+        {
+            res.json(ra[0]);
+            return;
+        }
+        else{
+            res.json({"id":-1})
+        }
         /*const resp = await pool.query("Select * from user WHERE correo = ? AND contra = ?;",[aux.correo, aux.contra]);
         if(resp.length>0){
             res.json(resp[0]);-

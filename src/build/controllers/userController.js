@@ -95,9 +95,16 @@ class UserController {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(req.params);
             let aux = req.body;
-            let ra = yield database_1.default.query("Select contra from user WHERE correo = ?;", [aux.correo]);
+            let ra = yield database_1.default.query("Select * from user WHERE correo = ?;", [aux.correo]);
             let qqq = yield bcryptjs_1.default.compare(req.body.contra, ra[0].contra);
             console.log(qqq);
+            if (qqq) {
+                res.json(ra[0]);
+                return;
+            }
+            else {
+                res.json({ "id": -1 });
+            }
             /*const resp = await pool.query("Select * from user WHERE correo = ? AND contra = ?;",[aux.correo, aux.contra]);
             if(resp.length>0){
                 res.json(resp[0]);-
