@@ -18,12 +18,12 @@ const cors_1 = __importDefault(require("cors"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const database_1 = __importDefault(require("./database"));
-const correoAcceso = require("./correoAcceso");
+const correoAcceso = require('./correoAcceso');
 class Server {
     constructor() {
         this.queryProfesor = (decodificado) => {
             return new Promise((resolve, reject) => {
-                let consulta = 'SELECT * FROM profesores WHERE correo="' + decodificado + '"';
+                let consulta = 'SELECT * FROM user WHERE correo="' + decodificado + '"';
                 database_1.default.query(consulta, (error, results) => {
                     if (error)
                         return reject(error);
@@ -37,26 +37,22 @@ class Server {
         this.routes();
     }
     config() {
-        this.app.use(express_1.default.urlencoded({
-            limit: "50mb",
-            parameterLimit: 100000,
-            extended: false,
-        }));
-        this.app.use(express_1.default.json({ limit: "50mb" }));
-        this.app.set("port", process.env.PORT || 3001);
-        this.app.use((0, morgan_1.default)("dev"));
+        this.app.use(express_1.default.urlencoded({ limit: '50mb', parameterLimit: 100000, extended: false }));
+        this.app.use(express_1.default.json({ limit: '50mb' }));
+        this.app.set('port', process.env.PORT || 3001);
+        this.app.use((0, morgan_1.default)('dev'));
         this.app.use((0, cors_1.default)());
         this.app.use(express_1.default.urlencoded({ extended: false }));
     }
     routes() {
-        this.app.post("/enviarCorreoRecuperarContrasenya", (req, res) => {
+        this.app.post('/enviarCorreoRecuperarContrasenya', (req, res) => {
             correoAcceso(req.body);
         });
-        this.app.post("/decodificarMail", (req, res) => __awaiter(this, void 0, void 0, function* () {
+        this.app.post('/decodificarMail', (req, res) => __awaiter(this, void 0, void 0, function* () {
             let decodificado;
             try {
-                decodificado = jsonwebtoken_1.default.verify(req.body.token, process.env.TOKEN_SECRET || "prueba");
-                const result1 = (yield this.queryProfesor(decodificado));
+                decodificado = jsonwebtoken_1.default.verify(req.body.token, process.env.TOKEN_SECRET || 'prueba');
+                const result1 = yield this.queryProfesor(decodificado);
                 if (result1.length == 0)
                     res.json(0);
                 else
@@ -68,8 +64,8 @@ class Server {
         }));
     }
     start() {
-        this.app.listen(this.app.get("port"), () => {
-            console.log(`Listening on port ${this.app.get("port")}`);
+        this.app.listen(this.app.get('port'), () => {
+            console.log(`Listening on port ${this.app.get('port')}`);
         });
     }
 }

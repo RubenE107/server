@@ -1,25 +1,27 @@
+
 var email = require("emailjs/email");
 console.log("hola");
-//module.exports = (formulario: any) => {
+
+module.exports = (formulario:any) =>{
+console.log("hola");
 var server = email.server.connect({
-  user: "alfredo_hjdlo@hotmail.com ",
-  password: "",
-  port:587,
-  host: "smtp-mail.outlook.com",
-  ssl: true,
+  user: "equipWed@hotmail.com", 
+  password: "qwer145A",
+   host: "smtp-mail.outlook.com",  
+  tls: true 
 });
 
-var message: any = {};
-message = {
-  from: "alfredo_hjdlo@hotmail.com",
-  to: "Erikue<erikue@hotmail.com>",
-  bcc: "",
+/*var message = {
+  from: "equipWed@hotmail.com",
+  to: "irtu098@gmail.com", 
   subject: "Probando ando",
   attachment: [
-    { data: `¡¡Te damos la más cordial bienvenida !!`, alternative: true },
+    { data: "¡¡Te damos la más cordial bienvenida !!", alternative: true },
   ],
-};
-server.send(message, function (err: any, message: any) {
-  console.log(err);
+};*/
+
+server.send(formulario, function (err, formulario) {
+  console.log("error=",err);
+  formulario=null;
 });
-//}
+}

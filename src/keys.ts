@@ -2,7 +2,7 @@ export default{
     database: {
         host: 'localhost', 
         user: 'root',
-        password: '',
+        password: 'utm2024',
         database: 'carniceria'
     }
 }
