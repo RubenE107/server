@@ -20,7 +20,7 @@ var server = email.server.connect({
   ],
 };*/
 
-server.send(formulario, function (err, formulario) {
+server.send(formulario, function (err:any, formulario:any) {
   console.log("error=",err);
   formulario=null;
 });
