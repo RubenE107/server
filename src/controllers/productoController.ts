@@ -3,7 +3,7 @@ import pool from '../database';
 class ProductoController
 {
     public async list(req: Request, res: Response ): Promise<void>{
-        const respuesta = await pool.query('SELECT * FROM producto WHERE cantidad > 0');
+        const respuesta = await pool.query('SELECT * FROM producto WHERE cantidad >= 0');
         res.json( respuesta );
     }
 
