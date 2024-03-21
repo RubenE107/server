@@ -1,13 +1,14 @@
+import dotenv from 'dotenv';
+dotenv.config();
 
 var email = require("emailjs/email");
 console.log("hola");
 
 module.exports = (formulario:any) =>{
-console.log("hola");
 var server = email.server.connect({
-  user: "equipWed@hotmail.com", 
-  password: "qwer145A",
-   host: "smtp-mail.outlook.com",  
+  user: process.env.user, 
+  password:process.env.password,
+   host: process.env.host,  
   tls: true 
 });
 

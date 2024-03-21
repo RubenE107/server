@@ -1,12 +1,17 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 var email = require("emailjs/email");
 console.log("hola");
 module.exports = (formulario) => {
-    console.log("hola");
     var server = email.server.connect({
-        user: "equipWed@hotmail.com",
-        password: "qwer145A",
-        host: "smtp-mail.outlook.com",
+        user: process.env.user,
+        password: process.env.password,
+        host: process.env.host,
         tls: true
     });
     /*var message = {
