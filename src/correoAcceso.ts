@@ -7,7 +7,7 @@ console.log("hola");
 module.exports = (formulario:any) =>{
 var server = email.server.connect({
   user: process.env.user, 
-  password:process.env.password,
+  password:process.env.Correo_Pass,
    host: process.env.host,  
   tls: true 
 });

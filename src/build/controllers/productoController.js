@@ -17,7 +17,7 @@ const database_1 = __importDefault(require("../database"));
 class ProductoController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const respuesta = yield database_1.default.query('SELECT * FROM producto WHERE cantidad > 0');
+            const respuesta = yield database_1.default.query('SELECT * FROM producto WHERE cantidad >= 0');
             res.json(respuesta);
         });
     }
