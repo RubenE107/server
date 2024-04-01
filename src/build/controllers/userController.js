@@ -113,5 +113,17 @@ class UserController {
                 res.json({"id":-1});*/
         });
     }
+    nuevaContra(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log("req: ", req.body);
+            const salt = yield bcryptjs_1.default.genSalt(10);
+            console.log(salt);
+            let clave = yield bcryptjs_1.default.hash(req.body.contra, salt);
+            console.log(clave);
+            req.body.contra = clave;
+            const resp = yield database_1.default.query(`UPDATE user SET contra = "${clave}" WHERE correo = "${req.body.correo}"`);
+            res.json(resp);
+        });
+    }
 }
 exports.userController = new UserController();

@@ -93,6 +93,16 @@ class UserController
             res.json({"id":-1});*/
     }
 
+    public async nuevaContra(req: Request, res: Response): Promise<void> {
+        console.log("req: ", req.body)
+        const salt = await bcrypt.genSalt(10);
+        console.log(salt);
+        let clave = await bcrypt.hash(req.body.contra, salt);
+        console.log(clave);
+        req.body.contra = clave
+        const resp = await pool.query(`UPDATE user SET contra = "${clave}" WHERE correo = "${req.body.correo}"`);
+        res.json(resp);
+    }
 
 
 }

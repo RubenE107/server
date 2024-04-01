@@ -24,12 +24,14 @@ class Server {
     }
     routes(): void {
         this.app.post('/enviarCorreoRecuperarContrasenya', (req, res) => {
+            console.log("req: ",req.body)
             correoAcceso(req.body);
         });
         this.app.post('/decodificarMail', async (req, res) => {
             let decodificado;
             try {
-                decodificado = jwt.verify(req.body.token, process.env.TOKEN_SECRET || 'prueba');
+                decodificado = jwt.verify(req.body.token, process.env.TOKEN_SECRET || 'tokentest');
+                console.log(decodificado);
                 const result1 = await this.queryProfesor(decodificado) as any;
                 if (result1.length == 0)
                     res.json(0);
@@ -41,7 +43,7 @@ class Server {
     }
     queryProfesor = (decodificado: any) => {
         return new Promise((resolve, reject) => {
-            let consulta = 'SELECT * FROM user WHERE correo="' + decodificado + '"';
+            let consulta = 'SELECT * FROM user WHERE correo="' + decodificado.correo + '"';
             pool.query(consulta, (error: any, results: any) => {
                 if (error)
                     return reject(error);

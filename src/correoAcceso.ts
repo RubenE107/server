@@ -1,10 +1,12 @@
 import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
+
 dotenv.config();
 
 var email = require("emailjs/email");
-console.log("hola");
 
 module.exports = (formulario:any) =>{
+  var token = jwt.sign(formulario, process.env.TOKEN_SECRET || 'tokentest')
 var server = email.server.connect({
   user: process.env.user, 
   password:process.env.Correo_Pass,
@@ -12,17 +14,18 @@ var server = email.server.connect({
   tls: true 
 });
 
-/*var message = {
+var message = {
   from: "equipWed@hotmail.com",
-  to: "irtu098@gmail.com", 
-  subject: "Probando ando",
+  to: "<"+formulario.correo+">", 
+  bbc : "",
+  subject: "Cambio de contraseña",
   attachment: [
-    { data: "¡¡Te damos la más cordial bienvenida !!", alternative: true },
+    { data: `<a href="http://localhost:4200/home/reestablecer/${token}" style="font-family:corbel, arial, sans-serif; font-size:10pt; font-weight: bold;"> Cambiar la contraseña </a>`, alternative: true },
   ],
-};*/
+};
 
-server.send(formulario, function (err:any, formulario:any) {
+server.send(message, function (err:any, message:any) {
   console.log("error=",err);
-  formulario=null;
+  message=null;
 });
 }
