@@ -48,6 +48,14 @@ class ProductoOfertaController {
         const respuesta = await pool.query("DELETE FROM producto_oferta WHERE id_producto = ? AND id_oferta = ?", [req.body.id_producto, req.body.id_oferta]);
         res.json(respuesta);
     }
+
+    //Funcion que anula la oferta, recibe un id por medio del body.
+    //Lo que hace es que una oferta, la pone en 0 porciento, de tal manera que se guardará en el historial
+    //Esta función se ocupa al momento que el carrito pone la cantidad en 0
+    public async anularOferta(req: Request, res:Response):Promise<void>{
+        const respuesta = await pool.query(`UPDATE producto_oferta SET porc_descuento = 0 WHERE id_producto = ${req.body.id}`)
+        res.json(respuesta);
+    }
 }
 
 export const productoOfertaController = new ProductoOfertaController();
