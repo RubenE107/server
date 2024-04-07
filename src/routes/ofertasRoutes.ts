@@ -8,7 +8,7 @@ public router: Router=Router();
     this.config();
     }
     config() : void{
-        
+
         this.router.post('/create', ofertasController.create);
         this.router.put('/update/:id',ofertasController.update);
         this.router.delete('/delete/:id', ofertasController.delete);

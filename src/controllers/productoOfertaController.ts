@@ -27,6 +27,7 @@ class ProductoOfertaController {
         const respuesta = await pool.query('SELECT  DISTINCT p.id AS id_producto FROM producto p INNER JOIN producto_oferta po ON p.id = po.id_producto INNER JOIN oferta o ON po.id_oferta = o.id WHERE CURDATE() BETWEEN STR_TO_DATE(o.fecha_inicio, "%d-%m-%Y") AND STR_TO_DATE(o.fecha_fin, "%d-%m-%Y");')
         res.json(respuesta);
     }
+
     // listOneProducto lista buscando por ID de producto
     public async listPorProducto(req: Request, res: Response): Promise<void> {
         const { id_producto } = req.params;
