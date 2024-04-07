@@ -1937,6 +1937,56 @@
                 ]
             }
         },
+        "/api/ofertas/listAll_Ofertas_Producto/": {
+            "get": {
+                "tags": ["Ofertas"],
+                "summary": "Lista de todas las ofertas que existen en la carniceria y los productos asociados a cada una.",
+                "description": "<p>Servicio que devuelve la información detallada de todas las ofertas que existen en la carniceria y los productos asociados a cada una.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son las ofertas existentes en la carniceria y los productos asociados a cada una?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_oferta": 1,
+                                    "id_producto": 1,
+                                    "nombre_oferta": "Primera prueba",
+                                    "precio_orig": 100,
+                                    "porc_descuento": 10,
+                                    "fecha_inicio": "06-04-2024",
+                                    "fecha_fin": "07-04-2024",
+                                    "nombre_producto": "Carne de res"
+                                },
+                                {
+                                    "id_oferta": 2,
+                                    "id_producto": 2,
+                                    "nombre_oferta": "Oferta pasada",
+                                    "precio_orig": 200,
+                                    "porc_descuento": 20,
+                                    "fecha_inicio": "01-04-2024",
+                                    "fecha_fin": "05-04-2024",
+                                    "nombre_producto": "Carne de cerdo"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Ofertas"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }, "parameters": [
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "Authorization",
+                        "default": "Bearer eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ]
+            }
+        },
         "/api/ofertas/create/": {
             "post": {
                 "summary": "Creando una oferta",
