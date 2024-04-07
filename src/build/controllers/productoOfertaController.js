@@ -34,6 +34,18 @@ class ProductoOfertaController {
             res.status(404).json({ "mensaje": "Oferta no encontrada" });
         });
     }
+    listIdProducto(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const respuesta = yield database_1.default.query("SELECT id_producto FROM producto_oferta");
+            res.json(respuesta);
+        });
+    }
+    idproductosdeOfertasActivas(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const respuesta = yield database_1.default.query('SELECT  DISTINCT p.id AS id_producto FROM producto p INNER JOIN producto_oferta po ON p.id = po.id_producto INNER JOIN oferta o ON po.id_oferta = o.id WHERE CURDATE() BETWEEN STR_TO_DATE(o.fecha_inicio, "%d-%m-%Y") AND STR_TO_DATE(o.fecha_fin, "%d-%m-%Y");');
+            res.json(respuesta);
+        });
+    }
     // listOneProducto lista buscando por ID de producto
     listPorProducto(req, res) {
         return __awaiter(this, void 0, void 0, function* () {

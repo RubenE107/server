@@ -8,6 +8,7 @@ public router: Router=Router();
     this.config();
     }
     config() : void{
+
         this.router.post('/create', ofertasController.create);
         this.router.put('/update/:id',ofertasController.update);
         this.router.delete('/delete/:id', ofertasController.delete);
@@ -18,6 +19,7 @@ public router: Router=Router();
         this.router.get('/duracionOfertas/', ofertasController.duracionOfertas);
         this.router.get('/ordenarFechaInicio/', ofertasController.ordenarFechaInicio);
         this.router.get('/listAll_Ofertas_Producto/', ofertasController.listAll_Ofertas_Producto);
+
     }
 }
 const ofertasRoutes= new OfertasRoutes();

@@ -17,6 +17,7 @@ class OfertasRoutes {
         this.router.get('/numOfertasActivas/', ofertasController_1.ofertasController.numOfetasActivas);
         this.router.get('/duracionOfertas/', ofertasController_1.ofertasController.duracionOfertas);
         this.router.get('/ordenarFechaInicio/', ofertasController_1.ofertasController.ordenarFechaInicio);
+        this.router.get('/listAll_Ofertas_Producto/', ofertasController_1.ofertasController.listAll_Ofertas_Producto);
     }
 }
 const ofertasRoutes = new OfertasRoutes();
