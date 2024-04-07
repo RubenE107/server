@@ -35,6 +35,10 @@
         {
             "name": "Ofertas",
             "description": "API con operaciones para gestionar ofertas especiales dentro de la carnicería. Permite la creación, modificación y eliminación de ofertas, así como consultar ofertas activas."
+        },
+        {
+            "name": "Producto - Oferta",
+            "description": "API con operaciones para gestionar las relaciones entre productos y sus ofertas asignadas. Permite la creación, listado y eliminación de productos y ofertas ya existentes."
         }
     ],
     "schemes": [
@@ -75,16 +79,7 @@
                     "403":{
                         "description": "Prohibido"
                     }
-                },
-                "parameters": [
-                    {
-                    "description": "apiKey",
-                    "type": "string",
-                    "in": "header",
-                    "name": "Authorization",
-                    "default": "Bearer eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
-                                
-                    }]
+                }
             }
         },
         "/api/users/listOne/{id}":{
@@ -2209,6 +2204,223 @@
                     "default":"4"
                 }
             ]
+        },
+
+        "/api/productoOferta/list/":{
+            "get": {
+                "tags": ["Producto - Oferta"],
+                "summary": "Lista de todas las relaciones producto-oferta que existen en la carniceria.",
+                "description": "<p>Devuelve la información detallada de todas las relaciones producto-oferta en la carnicería.</p><p>&nbsp;</p><p><em><strong>¿Qué productos participan en cuáles ofertas existentes en la carnicería?</strong></em></p>",
+                "responses": {
+                    "200":{
+                        "description": "OK",
+                        "examples": {      
+                            "application/json": [      
+                                {
+                                    "id_producto": 1,
+                                    "id_oferta": 1,
+                                    "precio_orig": 98,
+                                    "porc_descuento": 20
+                                },
+                                {
+                                    "id_producto": 5,
+                                    "id_oferta": 2,
+                                    "precio_orig": 130,
+                                    "porc_descuento": 15
+                                },
+                                {
+                                    "id_producto": 14,
+                                    "id_oferta": 3,
+                                    "precio_orig": 300,
+                                    "porc_descuento": 15
+                                }
+                            ]
+                        },
+                        "schema":{
+                            "$ref": "#/definitions/ProductosOfertas"
+                        }
+                    },
+                    "403":{
+                        "description": "Prohibido"
+                    }
+                },"parameters": [
+                    {
+                    "description": "apiKey",
+                    "type": "string",
+                    "in": "header",
+                    "name": "Authorization",
+                    "default": "Bearer eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+
+                ]
+            }
+        },
+        "/api/productoOferta/listPorOferta/{id_oferta}":{
+            "get":{
+                "tags":["Producto - Oferta"],
+                "summary":"Muestra la informacion de las relaciones producto-oferta que sean parte de la misma oferta.",
+                "description":"<p>Obtiene los detalles de las relaciones producto-oferta que comparten el mismo ID de oferta de la carnicería.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los productos incluidos en una oferta específica de la carnicería?</strong></em></p>",
+                "responses": {
+                    "200":{
+                        "description": "OK",
+                        "examples": {      
+                            "application/json": [      
+                                {
+                                    "id_producto": 1,
+                                    "id_oferta": 1,
+                                    "precio_orig": 98,
+                                    "porc_descuento": 20
+                                },
+                                {
+                                    "id_producto": 3,
+                                    "id_oferta": 1,
+                                    "precio_orig": 130,
+                                    "porc_descuento": 20
+                                }
+                            ]
+                        },
+                        "schema":{
+                            "$ref": "#/definitions/ProductosOfertas"
+                        }
+                    },
+                    "403":{
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                    "description": "apiKey",
+                    "type": "string",
+                    "in": "header",
+                    "name": "Authorization",
+                    "default": "Bearer eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    },
+                    {
+                        "name":"id_oferta",
+                        "in":"path",
+                        "required":true,
+                        "description":"Identificador de la oferta",
+                        "type":"number",
+                        "default":"1"
+                    }
+                ]
+            }
+        },
+        "/api/productoOferta/listPorProducto/{id_producto}":{
+            "get":{
+                "tags":["Producto - Oferta"],
+                "summary":"Muestra la informacion de las relaciones producto-oferta correspondientes a un producto específico.",
+                "description":"<p>Obtiene los detalles de las relaciones producto-oferta que comparten el mismo ID de producto de la carnicería.</p><p>&nbsp;</p><p><em><strong>¿En cuáles ofertas ha sido incluido un producto específico de la carnicería?</strong></em></p>",
+                "responses": {
+                    "200":{
+                        "description": "OK",
+                        "examples": {      
+                            "application/json": [      
+                                {
+                                    "id_producto": 1,
+                                    "id_oferta": 1,
+                                    "precio_orig": 98,
+                                    "porc_descuento": 20
+                                },
+                                {
+                                    "id_producto": 1,
+                                    "id_oferta": 4,
+                                    "precio_orig": 98,
+                                    "porc_descuento": 15
+                                }
+                            ]
+                        },
+                        "schema":{
+                            "$ref": "#/definitions/ProductosOfertas"
+                        }
+                    },
+                    "403":{
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                    "description": "apiKey",
+                    "type": "string",
+                    "in": "header",
+                    "name": "Authorization",
+                    "default": "Bearer eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    },
+                    {
+                        "name":"id_producto",
+                        "in":"path",
+                        "required":true,
+                        "description":"Identificador del producto",
+                        "type":"number",
+                        "default":"1"
+                    }
+                ]
+            }
+        },
+        "/api/productoOferta/create/":{
+            "post":
+            {
+                "summary" : "Creando una relación producto-oferta.",
+                "description": "<p>Crea una nueva relación producto-oferta en la carnicería. Permite asociar un producto con una oferta ya existente, además de definir su precio al momento de añadirse a la oferta, junto con el porcentaje de descuento aplicado.</p><p>&nbsp;</p><p><em><strong>¿Qué producto se quiere agregar a cuál oferta existente en la carnicería?</strong></em></p>",
+                "operationId": "create",
+                "produces":[
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name" : "Producto - Oferta",
+                        "in": "body",
+                        "description" :"Relación producto-oferta a agregar",
+                        "required" : true,
+                        "schema" : {
+                            "$ref" : "#/definitions/ProductoOferta"
+                        }
+                    }
+                ],
+                "tags" : ["Producto - Oferta"],
+                "responses" : {
+                    "200" :{
+                        "description" : "Insertado con exito"
+                    },
+                    "403" : {
+                        "description" : "Prohibido"
+                    }
+                }
+
+            }
+        },
+        "/api/productoOferta/delete":{
+            "delete":{
+                "tags":["Producto - Oferta"],
+                "description":"<p>Elimina una relación producto-oferta en la carnicería. Permite eliminar un producto de una oferta específica proporcionando ambos IDs, lo que borrará también su anterior información de precio original y descuento aplicado.</p><p>&nbsp;</p><p><em><strong>¿Cuál producto se quiere eliminar de qué oferta de la carnicería?</strong></em></p>",
+                "summary":"Eliminacion de un solo producto de una oferta específica.",
+                "responses":{
+                    "200":{
+                        "description":"OK"
+                    },
+                    "403":{
+                        "description":"Prohibido"
+                    }
+                }
+            },
+            "parameters": [
+                    {
+                    "description": "apiKey",
+                    "type": "string",
+                    "in": "header",
+                    "name": "Authorization",
+                    "default": "Bearer eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    },
+                {
+                    "name":"ProductoOfertaIDs",
+                    "in":"body",
+                    "required":true,
+                    "description":"Identificadores del producto y oferta de la relación a eliminar",
+                    "schema": {
+                        "$ref": "#/definitions/ProductoOfertaIDs"
+                    }
+                }
+            ]
         }
 
 
@@ -2577,6 +2789,47 @@
                 "fecha_fin" :{
                     "type": "string",
                     "description" : "Fecha de fin de la oferta de la manera siguiente 'dd-mm-yyyy'"
+                }
+            }
+        },
+
+        "ProductoOferta": {
+            "type": "object",
+            "properties": {
+                "id_producto": {
+                    "type": "number",
+                    "description": "Identificador del producto"
+                },
+                "id_oferta": {
+                    "type": "number",
+                    "description": "Identificador de la oferta"
+                },
+                "precio_orig": {
+                    "type": "number",
+                    "description": "Precio del producto previo a la aplicación de la oferta"
+                },
+                "porc_descuento": {
+                    "type": "number",
+                    "description": "Porcentaje de descuento aplicado al producto en la oferta"
+                }
+            }
+        },
+        "ProductosOfertas": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/ProductoOferta"
+            }
+        },
+        "ProductoOfertaIDs": {
+            "type": "object",
+            "properties": {
+                "id_producto": {
+                    "type": "number",
+                    "description": "Identificador del producto"
+                },
+                "id_oferta": {
+                    "type": "number",
+                    "description": "Identificador de la oferta"
                 }
             }
         }
