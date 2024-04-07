@@ -17,6 +17,7 @@ public router: Router=Router();
         this.router.get('/numOfertasActivas/', ofertasController.numOfetasActivas);
         this.router.get('/duracionOfertas/', ofertasController.duracionOfertas);
         this.router.get('/ordenarFechaInicio/', ofertasController.ordenarFechaInicio);
+        this.router.get('/listAll_Ofertas_Producto/', ofertasController.listAll_Ofertas_Producto);
     }
 }
 const ofertasRoutes= new OfertasRoutes();

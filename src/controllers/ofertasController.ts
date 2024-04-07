@@ -53,5 +53,11 @@ class OfertasController {
         const respuesta = await pool.query('SELECT * FROM oferta ORDER BY STR_TO_DATE(fecha_inicio, "%d-%m-%Y") DESC;');
         res.json(respuesta);
     }
+
+    public async listAll_Ofertas_Producto(req: Request, res: Response): Promise<void> {
+        const respuesta = await pool.query('SELECT id_oferta, id_producto, oferta.nombre as nombre_oferta, precio_orig, porc_descuento, fecha_inicio, fecha_fin, producto.nombre as nombre_producto FROM producto_oferta, oferta, producto WHERE oferta.id = producto_oferta.id_oferta AND producto_oferta.id_producto = producto.id;');
+        res.json(respuesta);
+    }
+    
 }
 export const ofertasController = new OfertasController();
