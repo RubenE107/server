@@ -77,5 +77,14 @@ class ProductoOfertaController {
             res.json(respuesta);
         });
     }
+    //Funcion que anula la oferta, recibe un id por medio del body.
+    //Lo que hace es que una oferta, la pone en 0 porciento, de tal manera que se guardará en el historial
+    //Esta función se ocupa al momento que el carrito pone la cantidad en 0
+    anularOferta(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const respuesta = yield database_1.default.query(`UPDATE producto_oferta SET porc_descuento = 0 WHERE id_producto = ${req.body.id}`);
+            res.json(respuesta);
+        });
+    }
 }
 exports.productoOfertaController = new ProductoOfertaController();

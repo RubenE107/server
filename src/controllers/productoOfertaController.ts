@@ -57,7 +57,6 @@ class ProductoOfertaController {
         res.json(respuesta);
     }
 
-<<<<<<< HEAD
     //Funcion que anula la oferta, recibe un id por medio del body.
     //Lo que hace es que una oferta, la pone en 0 porciento, de tal manera que se guardará en el historial
     //Esta función se ocupa al momento que el carrito pone la cantidad en 0
@@ -65,8 +64,7 @@ class ProductoOfertaController {
         const respuesta = await pool.query(`UPDATE producto_oferta SET porc_descuento = 0 WHERE id_producto = ${req.body.id}`)
         res.json(respuesta);
     }
-=======
->>>>>>> d9f7238e42c9fe29fdf30f0f7bbede58b152dd58
+
 }
 
 export const productoOfertaController = new ProductoOfertaController();

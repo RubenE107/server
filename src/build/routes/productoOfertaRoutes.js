@@ -16,6 +16,7 @@ class ProductoOfertaRoutes {
         this.router.post('/create', productoOfertaController_1.productoOfertaController.create);
         // this.router.put('/update', productoOfertaController.update);
         this.router.delete('/delete', productoOfertaController_1.productoOfertaController.delete);
+        this.router.put('/anularOferta', productoOfertaController_1.productoOfertaController.anularOferta);
     }
 }
 const productoOfertaRoutes = new ProductoOfertaRoutes();
