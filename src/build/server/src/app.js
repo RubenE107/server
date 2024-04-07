@@ -23,7 +23,7 @@ class Server {
     constructor() {
         this.queryProfesor = (decodificado) => {
             return new Promise((resolve, reject) => {
-                let consulta = 'SELECT * FROM user WHERE correo="' + decodificado.correo + '"';
+                let consulta = 'SELECT * FROM user WHERE correo="' + decodificado + '"';
                 database_1.default.query(consulta, (error, results) => {
                     if (error)
                         return reject(error);
@@ -46,14 +46,12 @@ class Server {
     }
     routes() {
         this.app.post('/enviarCorreoRecuperarContrasenya', (req, res) => {
-            console.log("req: ", req.body);
             correoAcceso(req.body);
         });
         this.app.post('/decodificarMail', (req, res) => __awaiter(this, void 0, void 0, function* () {
             let decodificado;
             try {
-                decodificado = jsonwebtoken_1.default.verify(req.body.token, process.env.TOKEN_SECRET || 'tokentest');
-                console.log(decodificado);
+                decodificado = jsonwebtoken_1.default.verify(req.body.token, process.env.TOKEN_SECRET || 'prueba');
                 const result1 = yield this.queryProfesor(decodificado);
                 if (result1.length == 0)
                     res.json(0);

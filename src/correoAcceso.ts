@@ -1,27 +1,46 @@
+import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
+
+dotenv.config();
 
 var email = require("emailjs/email");
-console.log("hola");
 
 module.exports = (formulario:any) =>{
-console.log("hola");
+  var token = jwt.sign(formulario, process.env.TOKEN_SECRET || 'tokentest')
 var server = email.server.connect({
-  user: "equipWed@hotmail.com", 
-  password: "qwer145A",
-   host: "smtp-mail.outlook.com",  
+  user: process.env.user, 
+  password:process.env.Correo_Pass,
+   host: process.env.host,  
   tls: true 
 });
 
-/*var message = {
+var message = {
   from: "equipWed@hotmail.com",
-  to: "irtu098@gmail.com", 
-  subject: "Probando ando",
+  to: "<" + formulario.correo + ">",
+  bbc: "",
+  subject: "Restablece tu contraseña de Carniceria Don Toño",
   attachment: [
-    { data: "¡¡Te damos la más cordial bienvenida !!", alternative: true },
+    {
+      data: `
+      <p>Sentimos saber que has olvidado tu contraseña. ¡Estamos aquí para ayudarte!<br>
+      Parece que has olvidado tu contraseña de Carniceria Don Toño. No te preocupes, ¡te ayudamos a recuperarla!<br>
+      Para restablecer tu contraseña, <a href="${process.env.URlRestablecer}${token}" style="font-family:corbel, arial, sans-serif; font-size:10pt; font-weight: bold;">Haz clip aqui</a></p>
+      <br>
+      <a style="color: red; font-family:corbel, arial, sans-serif; font-size:10pt; font-weight: bold;">Si no has solicitado este restablecimiento:<br>
+      *Ignora este correo electrónico.<br>
+      *Cambia tu contraseña por precaución.<a><br>
+      <br>
+      <p>Atentamente,<br>
+      El equipo de Carniceria Don Toño</p>
+      `,
+      alternative: true,
+    },
   ],
-};*/
+};
 
-server.send(formulario, function (err:any, formulario:any) {
+
+server.send(message, function (err:any, message:any) {
   console.log("error=",err);
-  formulario=null;
+  message=null;
 });
 }

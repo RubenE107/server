@@ -15,8 +15,6 @@ const productoRoutes_1 = __importDefault(require("./routes/productoRoutes"));
 const carritoRoutes_1 = __importDefault(require("./routes/carritoRoutes"));
 const ventaRoutes_1 = __importDefault(require("./routes/ventaRoutes"));
 const ingredientesRoutes_1 = __importDefault(require("./routes/ingredientesRoutes"));
-const ofertasRoutes_1 = __importDefault(require("./routes/ofertasRoutes"));
-const productoOfertaRoutes_1 = __importDefault(require("./routes/productoOfertaRoutes"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -39,8 +37,6 @@ class Server {
         this.app.use('/api/carrito', carritoRoutes_1.default);
         this.app.use('/api/ventas', ventaRoutes_1.default);
         this.app.use('/api/ingredientes', ingredientesRoutes_1.default);
-        this.app.use('/api/ofertas', ofertasRoutes_1.default);
-        this.app.use('/api/productoOferta', productoOfertaRoutes_1.default);
     }
     start() {
         this.app.listen(this.app.get('port'), () => {
