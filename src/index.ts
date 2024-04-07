@@ -11,6 +11,7 @@ import carritoRoutes from './routes/carritoRoutes';
 import ventaRoutes from './routes/ventaRoutes';
 import ingredientesRoutes from './routes/ingredientesRoutes';
 import ofertasRoutes from './routes/ofertasRoutes';
+import productoOfertaRoutes from './routes/productoOfertaRoutes';
 class Server
 {
 public app: Application;
@@ -40,6 +41,7 @@ routes (): void
     this.app.use('/api/ventas',ventaRoutes);
     this.app.use('/api/ingredientes',ingredientesRoutes);
     this.app.use('/api/ofertas',ofertasRoutes);
+    this.app.use('/api/productoOferta',productoOfertaRoutes);
         
 }
 start (): void

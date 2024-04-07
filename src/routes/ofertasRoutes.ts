@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { ofertasController } from '../controllers/ofertasController';
-class ProductoRoutes
+class OfertasRoutes
 {
 public router: Router=Router();
     constructor()
@@ -19,5 +19,5 @@ public router: Router=Router();
         this.router.get('/ordenarFechaInicio/', ofertasController.ordenarFechaInicio);
     }
 }
-const productoRoutes= new ProductoRoutes();
-export default productoRoutes.router;
+const ofertasRoutes= new OfertasRoutes();
+export default ofertasRoutes.router;
