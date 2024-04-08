@@ -5,6 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc -w",
+    "start": "node src/build/index.js",
     "dev": "nodemon src/build/index.js",
     "correo": "nodemon src/build/app.js"
   },
