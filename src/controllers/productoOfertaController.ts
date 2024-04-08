@@ -8,6 +8,22 @@ class ProductoOfertaController {
         const respuesta = await pool.query("SELECT * FROM producto_oferta");
         res.json(respuesta);
     }
+    public async listOneByIdProductoOferta(req: Request, res: Response): Promise<void> {
+        const  id_oferta  = req.params.id_oferta;
+        const   id_producto =req.params.id_producto
+        const respuesta = await pool.query("SELECT * FROM producto_oferta WHERE id_producto = ? AND id_oferta=?",[id_producto,id_oferta]);
+        if (respuesta.length > 0) {
+            res.json(respuesta[0]);
+            return;
+        }
+        res.status(404).json({ "mensaje": "Oferta no encontrada" });
+    }
+    public async update(req: Request, res: Response): Promise<void> {
+        const  id_oferta  = req.params.id_oferta;
+        const   id_producto =req.params.id_producto
+        const resp = await pool.query("UPDATE producto_Oferta set ? WHERE  id_producto = ? AND id_oferta=?",[req.body,id_producto,id_oferta]);
+        res.json(resp);
+    }
 
     // listOneOferta lista buscando por ID de oferta
     public async listPorOferta(req: Request, res: Response): Promise<void> {
