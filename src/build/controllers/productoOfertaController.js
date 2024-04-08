@@ -22,6 +22,26 @@ class ProductoOfertaController {
             res.json(respuesta);
         });
     }
+    listOneByIdProductoOferta(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const id_oferta = req.params.id_oferta;
+            const id_producto = req.params.id_producto;
+            const respuesta = yield database_1.default.query("SELECT * FROM producto_oferta WHERE id_producto = ? AND id_oferta=?", [id_producto, id_oferta]);
+            if (respuesta.length > 0) {
+                res.json(respuesta[0]);
+                return;
+            }
+            res.status(404).json({ "mensaje": "Oferta no encontrada" });
+        });
+    }
+    update(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const id_oferta = req.params.id_oferta;
+            const id_producto = req.params.id_producto;
+            const resp = yield database_1.default.query("UPDATE producto_Oferta set ? WHERE  id_producto = ? AND id_oferta=?", [req.body, id_producto, id_oferta]);
+            res.json(resp);
+        });
+    }
     // listOneOferta lista buscando por ID de oferta
     listPorOferta(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
