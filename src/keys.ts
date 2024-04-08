@@ -4,6 +4,8 @@ export default{
         user: 'carnicero',
         
         password: 'utm2024compu',
-        database: 'carniceria'
+        database: 'carniceria',
+        ssl: true
     }
+   
 }
