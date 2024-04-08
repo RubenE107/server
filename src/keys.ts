@@ -1,8 +1,9 @@
 export default{
     database: {
-        host: 'localhost', 
-        user: 'root',
-        password: '',
+        host: '198.12.216.200', 
+        user: 'carnicero',
+        
+        password: 'utm2024compu',
         database: 'carniceria'
     }
 }
