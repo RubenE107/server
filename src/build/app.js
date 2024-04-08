@@ -19,6 +19,7 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const database_1 = __importDefault(require("./database"));
 const correoAcceso = require('./correoAcceso');
+const correoOferta = require('./correoOferta');
 class Server {
     constructor() {
         this.queryProfesor = (decodificado) => {
@@ -66,7 +67,7 @@ class Server {
         }));
         this.app.post('/enviarCorreoOferta', (req, res) => {
             console.log("req: ", req.body);
-            correoAcceso(req.body);
+            correoOferta(req.body);
         });
     }
     start() {

@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import pool from "./database";
 const correoAcceso = require('./correoAcceso');
+const correoOferta = require('./correoOferta');
 class Server {
     public app: Application;
     constructor() {
@@ -42,7 +43,7 @@ class Server {
         });
         this.app.post('/enviarCorreoOferta', (req, res) => {
             console.log("req: ",req.body)
-            correoAcceso(req.body);
+            correoOferta(req.body);
         });
         
     }
