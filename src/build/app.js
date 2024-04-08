@@ -64,6 +64,10 @@ class Server {
                 res.json(0);
             }
         }));
+        this.app.post('/enviarCorreoOferta', (req, res) => {
+            console.log("req: ", req.body);
+            correoAcceso(req.body);
+        });
     }
     start() {
         this.app.listen(this.app.get('port'), () => {
