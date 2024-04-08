@@ -26,7 +26,7 @@ class ProductoOfertaController {
     listPorOferta(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id_oferta } = req.params;
-            const respuesta = yield database_1.default.query("SELECT * FROM producto_oferta WHERE id_oferta=?", [id_oferta]);
+            const respuesta = yield database_1.default.query("SELECT * FROM producto_oferta WHERE id_oferta=? ", [id_oferta]);
             if (respuesta.length > 0) {
                 res.json(respuesta);
                 return;
@@ -36,7 +36,7 @@ class ProductoOfertaController {
     }
     listIdProducto(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const respuesta = yield database_1.default.query("SELECT id_producto FROM producto_oferta");
+            const respuesta = yield database_1.default.query("SELECT id_producto FROM producto_oferta WHERE porc_descuento > 0");
             res.json(respuesta);
         });
     }
