@@ -12,7 +12,7 @@ class ProductoOfertaController {
     // listOneOferta lista buscando por ID de oferta
     public async listPorOferta(req: Request, res: Response): Promise<void> {
         const { id_oferta } = req.params;
-        const respuesta = await pool.query("SELECT * FROM producto_oferta WHERE id_oferta=?", [id_oferta]);
+        const respuesta = await pool.query("SELECT * FROM producto_oferta WHERE id_oferta=? ", [id_oferta]);
         if (respuesta.length > 0) {
             res.json(respuesta);
             return;
@@ -20,7 +20,7 @@ class ProductoOfertaController {
         res.status(404).json({ "mensaje": "Oferta no encontrada" });
     }
     public async listIdProducto(req: Request, res: Response): Promise<void> {
-        const respuesta = await pool.query("SELECT id_producto FROM producto_oferta");
+        const respuesta = await pool.query("SELECT id_producto FROM producto_oferta WHERE porc_descuento > 0");
         res.json(respuesta);
     }
     public async idproductosdeOfertasActivas(req: Request, res: Response): Promise<void> {
