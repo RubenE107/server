@@ -46,6 +46,9 @@ class Server {
         this.app.use(express_1.default.urlencoded({ extended: false }));
     }
     routes() {
+        this.app.get('/', (req, res) => {
+            res.send('probando servidor');
+        });
         this.app.post('/enviarCorreoRecuperarContrasenya', (req, res) => {
             console.log("req: ", req.body);
             correoAcceso(req.body);
