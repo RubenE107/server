@@ -6,7 +6,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc -w",
     "dev": "nodemon src/build/index.js",
-    "correo": "nodemon src/build/app.js"
+    "correo": "nodemon src/build/app.js",
+    "imagen": "nodemon src/build/imagen.js"
+
   },
   "keywords": [],
   "author": "",
