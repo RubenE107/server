@@ -12,6 +12,7 @@ class UserRoutes {
         this.router.post('/create', userController_1.userController.create);
         this.router.put('/nuevaContra', userController_1.userController.nuevaContra);
         this.router.post('/validarUsuario/', userController_1.userController.validarUsuario);
+        this.router.post('/validarCorreo/', userController_1.userController.validarCorreo);
         this.router.put('/update/:id', userController_1.userController.update);
         this.router.delete('/delete/:id', userController_1.userController.delete);
         this.router.get('/showAll/', userController_1.userController.list);

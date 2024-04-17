@@ -13,6 +13,7 @@ public router: Router=Router();
         this.router.post('/create', userController.create);
         this.router.put('/nuevaContra', userController.nuevaContra);
         this.router.post('/validarUsuario/', userController.validarUsuario);
+        this.router.post('/validarCorreo/', userController.validarCorreo);
         this.router.put('/update/:id',userController.update);
         this.router.delete('/delete/:id', userController.delete);
         this.router.get('/showAll/', userController.list );

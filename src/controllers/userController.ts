@@ -19,6 +19,17 @@ class UserController
         res.status(404).json({'mensaje': 'Usuario no encontrado'});
     }
 
+    public async validarCorreo(req: Request, res: Response): Promise <void>{
+        const correo = req.body.correo;
+        const respuesta = await pool.query('SELECT CASE WHEN EXISTS ( SELECT 1 FROM user WHERE correo = ? ) THEN 1 ELSE 0 END AS correo_existe;', [correo]);
+        if(respuesta.length>0){
+            res.json(respuesta[0]);
+            //console.log(respuesta[0])
+            return ;
+        }
+        res.status(404).json({'mensaje': 'Usuario no encontrado'});
+    }
+
     public async create(req: Request, res: Response): Promise<void> {
         const salt = await bcrypt.genSalt(10);
         console.log(salt);

@@ -34,6 +34,18 @@ class UserController {
             res.status(404).json({ 'mensaje': 'Usuario no encontrado' });
         });
     }
+    validarCorreo(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const correo = req.body.correo;
+            const respuesta = yield database_1.default.query('SELECT CASE WHEN EXISTS ( SELECT 1 FROM user WHERE correo = ? ) THEN 1 ELSE 0 END AS correo_existe;', [correo]);
+            if (respuesta.length > 0) {
+                res.json(respuesta[0]);
+                //console.log(respuesta[0])
+                return;
+            }
+            res.status(404).json({ 'mensaje': 'Usuario no encontrado' });
+        });
+    }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const salt = yield bcryptjs_1.default.genSalt(10);
