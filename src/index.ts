@@ -9,7 +9,6 @@ import rolRoutes from './routes/rolRoutes';
 import productoRoutes from './routes/productoRoutes';
 import carritoRoutes from './routes/carritoRoutes';
 import ventaRoutes from './routes/ventaRoutes';
-import ingredientesRoutes from './routes/ingredientesRoutes';
 import ofertasRoutes from './routes/ofertasRoutes';
 import productoOfertaRoutes from './routes/productoOfertaRoutes';
 class Server
@@ -39,7 +38,6 @@ routes (): void
     this.app.use('/api/productos',productoRoutes);
     this.app.use('/api/carrito',carritoRoutes);
     this.app.use('/api/ventas',ventaRoutes);
-    this.app.use('/api/ingredientes',ingredientesRoutes);
     this.app.use('/api/ofertas',ofertasRoutes);
     this.app.use('/api/productoOferta',productoOfertaRoutes);
         

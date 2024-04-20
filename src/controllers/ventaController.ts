@@ -3,7 +3,7 @@ import pool from '../database';
 class VentaController
 {
     public async list(req: Request, res: Response ): Promise<void>{
-        const respuesta = await pool.query('SELECT v.id, v.monto, v.cantidad, v.fecha, v.id_producto, p.nombre  FROM venta as v LEFT JOIN producto as p ON v.id_producto = p.id');
+        const respuesta = await pool.query('SELECT v.id, v.monto, v.cantidad, v.fecha, v.id_producto, p.nombre , p.name FROM venta as v LEFT JOIN producto as p ON v.id_producto = p.id');
         res.json( respuesta );
     }
     
@@ -35,7 +35,7 @@ class VentaController
     public async listVentaUsuario(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
         //const resp = await pool.query(`SELECT venta.*, user.nombre as nombreUsuario FROM  user,venta WHERE user.id=venta.id_usuario AND venta.id_usuario = ?;`,id);
-        const resp = await pool.query(`SELECT v.id, v.monto, v.cantidad, v.fecha, v.id_producto, p.nombre  FROM venta as v LEFT JOIN producto as p ON v.id_producto = p.id WHERE v.id_usuario = ?;`,id);
+        const resp = await pool.query(`SELECT v.id, v.monto, v.cantidad, v.fecha, v.id_producto, p.nombre, p.name  FROM venta as v LEFT JOIN producto as p ON v.id_producto = p.id WHERE v.id_usuario = ?;`,id);
         if(resp.length>0){
            res.json(resp);
            return ;
@@ -45,7 +45,7 @@ class VentaController
 
     public async ventasProducto(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
-        const resp = await pool.query(`SELECT v.id, v.monto, v.cantidad, v.fecha, v.id_producto, p.nombre  FROM venta as v 
+        const resp = await pool.query(`SELECT v.id, v.monto, v.cantidad, v.fecha, v.id_producto, p.nombre , p.name FROM venta as v 
         LEFT JOIN producto as p ON v.id_producto = p.id  WHERE v.id_producto = ?;`,id);
         if(resp.length>0){
            res.json(resp);
@@ -76,7 +76,7 @@ class VentaController
     public async filtraMonto(req: Request, res: Response): Promise<void> {
         const monto = req.body;
         // console.log(precio) 
-        const resp = await pool.query(`SELECT * FROM venta WHERE monto BETWEEN ? AND ?;`,[monto.valor1,monto.valor2] );
+        const resp = await pool.query(`SELECT *,  p.nombre , p.name  FROM venta, producto as p WHERE monto BETWEEN ? AND ? AND venta.id_producto = p.id;`,[monto.valor1,monto.valor2] );
         if(resp.length>0){
            res.json(resp);
            return ;
@@ -85,7 +85,7 @@ class VentaController
     }
     public async filtraYear(req: Request, res: Response): Promise<void> {
         const year = req.params.year;
-        const resp = await pool.query(`SELECT * FROM venta WHERE YEAR(fecha) = ?;` , [year] );
+        const resp = await pool.query(`SELECT *,  p.nombre , p.name FROM venta , producto as p WHERE YEAR(fecha) = ? AND venta.id_producto = p.id;` , [year] );
         if(resp.length>0){
            res.json(resp);
            return ;

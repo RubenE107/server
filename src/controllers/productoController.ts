@@ -65,7 +65,7 @@ class ProductoController
     }
     public async getNombresProducto(req: Request, res : Response):Promise<void>{
         const {id} = req.params;
-        const resp = await pool.query('SELECT nombre,id FROM producto',id);
+        const resp = await pool.query('SELECT nombre as nombre_producto ,name  as name_producto ,id FROM producto',id);
         if(resp.length>0){
             res.json(resp);
             return ;
@@ -73,7 +73,7 @@ class ProductoController
          res.status(404).json({'mensaje': 'No existe este producto'});
     }
     public async getAnimal(req: Request, res : Response):Promise<void>{
-        const resp = await pool.query('SELECT DISTINCT animal  FROM producto ',);
+        const resp = await pool.query('SELECT DISTINCT animal as nombre_animal, animal_eng as animal_name  FROM producto ',);
         if(resp.length>0){
             res.json(resp);
             return ;

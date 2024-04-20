@@ -91,7 +91,7 @@ class ProductoController {
     getNombresProducto(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const resp = yield database_1.default.query('SELECT nombre,id FROM producto', id);
+            const resp = yield database_1.default.query('SELECT nombre as nombre_producto ,name  as name_producto ,id FROM producto', id);
             if (resp.length > 0) {
                 res.json(resp);
                 return;
@@ -101,7 +101,7 @@ class ProductoController {
     }
     getAnimal(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const resp = yield database_1.default.query('SELECT DISTINCT animal  FROM producto ');
+            const resp = yield database_1.default.query('SELECT DISTINCT animal as nombre_animal, animal_eng as animal_name  FROM producto ');
             if (resp.length > 0) {
                 res.json(resp);
                 return;

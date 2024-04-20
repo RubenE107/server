@@ -17,7 +17,7 @@ const database_1 = __importDefault(require("../database"));
 class VentaController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const respuesta = yield database_1.default.query('SELECT v.id, v.monto, v.cantidad, v.fecha, v.id_producto, p.nombre  FROM venta as v LEFT JOIN producto as p ON v.id_producto = p.id');
+            const respuesta = yield database_1.default.query('SELECT v.id, v.monto, v.cantidad, v.fecha, v.id_producto, p.nombre , p.name FROM venta as v LEFT JOIN producto as p ON v.id_producto = p.id');
             res.json(respuesta);
         });
     }
@@ -57,7 +57,7 @@ class VentaController {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             //const resp = await pool.query(`SELECT venta.*, user.nombre as nombreUsuario FROM  user,venta WHERE user.id=venta.id_usuario AND venta.id_usuario = ?;`,id);
-            const resp = yield database_1.default.query(`SELECT v.id, v.monto, v.cantidad, v.fecha, v.id_producto, p.nombre  FROM venta as v LEFT JOIN producto as p ON v.id_producto = p.id WHERE v.id_usuario = ?;`, id);
+            const resp = yield database_1.default.query(`SELECT v.id, v.monto, v.cantidad, v.fecha, v.id_producto, p.nombre, p.name  FROM venta as v LEFT JOIN producto as p ON v.id_producto = p.id WHERE v.id_usuario = ?;`, id);
             if (resp.length > 0) {
                 res.json(resp);
                 return;
@@ -68,7 +68,7 @@ class VentaController {
     ventasProducto(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const resp = yield database_1.default.query(`SELECT v.id, v.monto, v.cantidad, v.fecha, v.id_producto, p.nombre  FROM venta as v 
+            const resp = yield database_1.default.query(`SELECT v.id, v.monto, v.cantidad, v.fecha, v.id_producto, p.nombre , p.name FROM venta as v 
         LEFT JOIN producto as p ON v.id_producto = p.id  WHERE v.id_producto = ?;`, id);
             if (resp.length > 0) {
                 res.json(resp);
@@ -105,7 +105,7 @@ class VentaController {
         return __awaiter(this, void 0, void 0, function* () {
             const monto = req.body;
             // console.log(precio) 
-            const resp = yield database_1.default.query(`SELECT * FROM venta WHERE monto BETWEEN ? AND ?;`, [monto.valor1, monto.valor2]);
+            const resp = yield database_1.default.query(`SELECT *,  p.nombre , p.name  FROM venta, producto as p WHERE monto BETWEEN ? AND ? AND venta.id_producto = p.id;`, [monto.valor1, monto.valor2]);
             if (resp.length > 0) {
                 res.json(resp);
                 return;
@@ -116,7 +116,7 @@ class VentaController {
     filtraYear(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const year = req.params.year;
-            const resp = yield database_1.default.query(`SELECT * FROM venta WHERE YEAR(fecha) = ?;`, [year]);
+            const resp = yield database_1.default.query(`SELECT *,  p.nombre , p.name FROM venta , producto as p WHERE YEAR(fecha) = ? AND venta.id_producto = p.id;`, [year]);
             if (resp.length > 0) {
                 res.json(resp);
                 return;

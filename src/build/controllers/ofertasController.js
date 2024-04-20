@@ -79,7 +79,7 @@ class OfertasController {
     }
     listAll_Ofertas_Producto(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const respuesta = yield database_1.default.query('SELECT id_oferta, id_producto, oferta.nombre as nombre_oferta, precio_orig, porc_descuento, fecha_inicio, fecha_fin, producto.nombre as nombre_producto FROM producto_oferta, oferta, producto WHERE oferta.id = producto_oferta.id_oferta AND producto_oferta.id_producto = producto.id;');
+            const respuesta = yield database_1.default.query('SELECT id_oferta, id_producto, oferta.nombre as nombre_oferta, precio_orig, porc_descuento, fecha_inicio, fecha_fin, producto.nombre as nombre_producto, producto.name as product_name FROM producto_oferta, oferta, producto WHERE oferta.id = producto_oferta.id_oferta AND producto_oferta.id_producto = producto.id;');
             res.json(respuesta);
         });
     }

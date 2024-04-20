@@ -108,15 +108,21 @@ class UserController {
             console.log(req.params);
             let aux = req.body;
             let ra = yield database_1.default.query("Select * from user WHERE correo = ?;", [aux.correo]);
-            let qqq = yield bcryptjs_1.default.compare(req.body.contra, ra[0].contra);
-            console.log(qqq);
-            if (qqq) {
-                res.json(ra[0]);
-                return;
+            if (ra.length > 0) {
+                let qqq = yield bcryptjs_1.default.compare(req.body.contra, ra[0].contra);
+                console.log(qqq);
+                if (qqq) {
+                    res.json(ra[0]);
+                    return;
+                }
+                else {
+                    // -1 si la contraseña no es válida
+                    res.json({ "id": -1 });
+                }
             }
-            else {
-                res.json({ "id": -1 });
-            }
+            else
+                // -2 si no existe el usuario
+                res.json({ "id": -2 });
             /*const resp = await pool.query("Select * from user WHERE correo = ? AND contra = ?;",[aux.correo, aux.contra]);
             if(resp.length>0){
                 res.json(resp[0]);-

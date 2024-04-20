@@ -69,7 +69,7 @@ class CarritoController {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             //const resp = await pool.query(`SELECT venta.*, user.nombre as nombreUsuario FROM  user,venta WHERE user.id=venta.id_usuario AND venta.id_usuario = ?;`,id);
-            const resp = yield database_1.default.query(`SELECT c.id, c.cantidad, p.nombre, p.precio, c.id_usuario, c.id_producto
+            const resp = yield database_1.default.query(`SELECT c.id, c.cantidad, p.nombre, p.name, p.precio, c.id_usuario, c.id_producto
         FROM carrito as c LEFT JOIN producto as p ON c.id_producto = p.id WHERE c.id_usuario = ?;`, id);
             if (resp.length > 0) {
                 res.json(resp);
