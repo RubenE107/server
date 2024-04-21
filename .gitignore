@@ -2,3 +2,4 @@ node_modules
 src/keys.ts
 src/correoAcceso.ts
 src/swagger.json
+.env
