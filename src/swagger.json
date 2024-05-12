@@ -357,9 +357,73 @@
                 }
             ]
         },
+        "/api/users/nuevaContra":{
+            "put":{
+                "tags":["Usuarios"],
+                "summary":"Actualización de la contraseña del usuario",
+                "description": "<p>Actualiza la contraseña de inicio de seción del usuario por medio de su correo electrónico</p>",
+                "responses":{
+                    "200":{
+                        "description":"OK"
+                    },
+                    "403":{
+                        "description":"Prohibido"
+                    }
+                },
+                "consumes":[
+                    "application/json"
+                ],
+                "produces":[
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name":"usuario",
+                        "in":"body",
+                        "description":"Usuario",
+                        "required":true,
+                        "schema":{
+                            "$ref":"#/definitions/ActContrasenha"
+                        }
+                    }
+                ]
+            }
+        },
+        "/api/users/validarCorreo/":{
+            "post":
+            {
+                "summary" : "Validando correo de usuario",
+                "operationId": "validarCorreo",
+                "description": "<p>Verifica que el correo ingresado realmente exista en la base de datos</p>",
+                "produces":[
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name" : "Usuario",
+                        "in": "body",
+                        "description" :"Verifica si el correo existe",
+                        "required" : true,
+                        "schema" : {
+                            "$ref" : "#/definitions/validarCorreo"
+                        }
+                    }
+                ],
+
+                "tags" : ["Usuarios"],
+                
+                "responses" : {
+                    "200" :{
+                        "description" : "OK"
+                    },
+                    "403" : {
+                        "description" : "Prohibido"
+                    }
+                }
+
+            }
+        },
         
-
-
 
 
         "/api/roles/showAll/":{
@@ -986,7 +1050,41 @@
             ]
         },
         
-        
+        "/api/productos/reducirCant/":{
+            "put":{
+                "summary":"Reduce la cantidad en stock",
+                "description":"<p>Al hacer una compra, este servicio reduce la cantidad del producto disponible en stock</p>",
+                "consumes":[
+                    "application/json"
+                ],
+                "produces":[
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name":"producto",
+                        "in":"body",
+                        "description":"Producto",
+                        "required":true,
+                        "schema":{
+                            "$ref":"#/definitions/ReducirCantidad"
+                        }
+                    }
+                ],
+                "tags":["Productos"],
+                "responses":{
+                    "200":{
+                        "description":"OK"
+                    },
+                    "403":{
+                        "description":"Prohibido"
+                
+                    }
+
+                }
+            }
+
+        },
 
 
         
@@ -2422,8 +2520,155 @@
                     }
                 }
             ]
-        }
+        },
+        "/api/productoOferta/listOneByIdProductoOferta/{id_oferta}/{id_producto}":{
+            "get":{
+                "tags":["Producto - Oferta"],
+                "summary":"Listado de producto por oferta",
+                "description":"<p>Busca el precio original y el precio del producto utilizando el id del producto y el id de la oferta</p>",
+                "responses": {
+                    "200":{
+                        "description": "OK"
+                    },
+                    "403":{
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name":"id_producto",
+                        "in":"path",
+                        "required":true,
+                        "description":"Identificador del producto",
+                        "type":"number",
+                        "default":"1"
+                    },
+                    {
+                        "name":"id_oferta",
+                        "in":"path",
+                        "required":true,
+                        "description":"Identificador de la oferta",
+                        "type":"number",
+                        "default":"1"
+                    }
+                ]
+            }
+        },
+        "/api/productoOferta/listIdProducto/":{
+            "get":{
+                "tags":["Producto - Oferta"],
+                "summary":"Listado de producto por oferta",
+                "description":"<p>Lista los numeros identificadores de aquellos productos que su oferta sea mayor a 0 (que no esté anulada la oferta)</p>",
+                "responses": {
+                    "200":{
+                        "description": "OK"
+                    },
+                    "403":{
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/productoOferta/idproductosdeOfertasActivas/":{
+            "get":{
+                "tags":["Producto - Oferta"],
+                "summary":"Listado de producto por oferta",
+                "description":"<p>Lista los numeros identificadores de aquellos productos que su oferta esté vigente</p>",
+                "responses": {
+                    "200":{
+                        "description": "OK"
+                    },
+                    "403":{
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/productoOferta/update/{id_producto}/{id_oferta}":{
+            "put":{
+                "summary":"Modifica una oferta de un producto atraves de sus id",
+                "description" :"<p>Actualiza el porcentaje de la oferta de un producto a travez de su id de una oferta igual identificada por un id</p>",
+                "operationId":"update",
+                "consumes":[
+                    "application/json"
+                ],
+                "produces":[
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name":"id_producto",
+                        "in":"path",
+                        "description":"id de la oferta",
+                        "required":true,
+                        "default":1
+                    },
+                    {
+                        "name":"id_oferta",
+                        "in":"path",
+                        "description":"id de la oferta",
+                        "required":true,
+                        "default":1
+                    },
+                    {
+                        "name":"ofertas",
+                        "in":"body",
+                        "description":"Ofertas",
+                        "required":true,
+                        "schema" : {
+                            "$ref" : "#/definitions/actPOferta"
+                        }
+                    }
+                ],
+                "tags":["Producto - Oferta"],
+                "responses":{
+                    "200":{
+                        "description":"OK"
+                    },
+                    "403":{
+                        "description":"Prohibido"
+                
+                    }
 
+                }
+            }
+
+        },
+        "/api/productoOferta/anularOferta":{
+            "put":{
+                "summary":"Anula una oferta",
+                "description" :"<p>Anula la oferta de un producto por medio de su ID, poniendo su descuento a 0</p>",
+                "consumes":[
+                    "application/json"
+                ],
+                "produces":[
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name":"ofertas",
+                        "in":"body",
+                        "description":"Ofertas",
+                        "required":true,
+                        "schema" : {
+                            "$ref" : "#/definitions/anularOferta"
+                        }
+                    }
+                ],
+                "tags":["Producto - Oferta"],
+                "responses":{
+                    "200":{
+                        "description":"OK"
+                    },
+                    "403":{
+                        "description":"Prohibido"
+                
+                    }
+
+                }
+            }
+
+        }
 
 
     },
@@ -2458,8 +2703,11 @@
                 "contra":{
                     "type": "string",
                     "description" : "contraseña del usuario"
+                },
+                "img":{
+                    "type":"number",
+                    "description":"Validación si el usuario tiene una imagen registrada"
                 }
-
             }
         },"validarUsuario":{
             "type": "object",
@@ -2508,6 +2756,28 @@
                     "description" : "contraseña del usuario"
                 }
 
+            }
+        },
+        "ActContrasenha":{
+            "type": "object",
+            "properties":{
+                "correo" :{
+                    "type": "string",
+                    "description" : "Correo del usuario"
+                },
+                "contra":{
+                    "type": "string",
+                    "description" : "contraseña del usuario"
+                }
+            }
+        },
+        "validarCorreo":{
+            "type": "object",
+            "properties":{
+                "correo" :{
+                    "type": "string",
+                    "description" : "Correo del usuario"
+                }
             }
         },
 
@@ -2620,7 +2890,19 @@
 
             }
         },
-
+        "ReducirCantidad":{
+            "type": "object",
+            "properties":{
+                "id" :{
+                    "type": "number",
+                    "description" : "Numero de identificación del producto"
+                },
+                "cantidad" :{
+                    "type": "number",
+                    "description" : "Cantidad de producto que se va a reducir"
+                }
+            }
+        },
 
 
 
@@ -2831,6 +3113,24 @@
                 "id_oferta": {
                     "type": "number",
                     "description": "Identificador de la oferta"
+                }
+            }
+        },
+        "actPOferta": {
+            "type": "object",
+            "properties": {
+                "porc_descuento": {
+                    "type": "number",
+                    "description": "Porcentaje del descuento del producto"
+                }
+            }
+        },
+        "anularOferta": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number",
+                    "description": "Numero de identificación del producto"
                 }
             }
         }
